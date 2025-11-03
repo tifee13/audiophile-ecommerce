@@ -1,14 +1,17 @@
 // app/layout.tsx
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Manrope } from "next/font/google";
 import "./globals.css";
 import ConvexClientProvider from "./_components/ConvexClientProvider";
-import Header from "./_components/layout/Header"; // 1. Import Header
-import Footer from "./_components/layout/Footer"; // 2. Import Footer
+import Header from "./_components/layout/Header";
+import Footer from "./_components/layout/Footer";
 
-const inter = Inter({ subsets: ["latin"] });
+const manrope = Manrope({ 
+  subsets: ["latin"],
+  weight: ["400", "500", "700"],
+});
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Audiophile E-commerce",
   description: "Pixel-perfect e-commerce experience",
 };
@@ -20,14 +23,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <ConvexClientProvider>
-          {/* We add 'flex flex-col min-h-screen' to ensure the
-              footer stays at the bottom of the page */}
-          <div className="flex flex-col min-h-screen"> 
-            <Header />        {/* 3. Add Header */}
-            <main>{children}</main> {/* 4. Main content goes here */}
-            <Footer />        {/* 5. Add Footer */}
+      <body className={manrope.className}>
+          <ConvexClientProvider>
+          {/* This div ensures the footer stays at the bottom */}
+          <div className="flex flex-col min-h-screen">
+            <Header />
+            <main className="relative">{children}</main>
+            <Footer />
           </div>
         </ConvexClientProvider>
       </body>

@@ -2,7 +2,6 @@
 import Image from "next/image";
 import Button from "../shared/Button";
 
-// Define the props our component will accept
 type CategoryProductProps = {
   slug: string;
   name: string;
@@ -13,7 +12,6 @@ type CategoryProductProps = {
     tablet: string;
     desktop: string;
   };
-  // This prop will determine if the image is on the left or right
   reverseLayout?: boolean;
 };
 
@@ -27,44 +25,72 @@ export default function CategoryProduct({
 }: CategoryProductProps) {
   return (
     <article
-      className="flex flex-col items-center gap-8
-                 lg:flex-row lg:gap-32"
+      className={`
+        flex flex-col items-center text-center
+        xl:flex-row xl:gap-32 xl:text-left
+        ${reverseLayout ? "xl:flex-row-reverse" : ""}
+      `}
     >
       {/* 1. Image Column */}
-      <div
-        className={`w-full lg:w-1/2 ${
-          reverseLayout ? "lg:order-2" : "lg:order-1"
-        }`}
-      >
-        {/* Show/hide the correct image for each breakpoint */}
-        <Image
-          src={image.mobile}
-          width={654}
-          height={704}
-          alt={name}
-          className="block md:hidden rounded-lg w-full"
-        />
-        <Image
-          src={image.tablet}
-          width={1378}
-          height={704}
-          alt={name}
-          className="hidden md:block lg:hidden rounded-lg w-full"
-        />
-        <Image
-          src={image.desktop}
-          width={540}
-          height={560}
-          alt={name}
-          className="hidden lg:block rounded-lg w-full"
-        />
+      <div className="w-full xl:w-[540px]">
+
+        {/* --- Mobile Image (hidden >= 768px) --- */}
+        {/* This is the 327x352 background container */}
+        <div
+          className=" md:hidden 
+                     w-full h-[352px] bg-gray-light rounded-lg 
+                     flex items-center justify-center"
+        >
+          {/* This is the 202x243 image */}
+          <Image
+            src={image.mobile}
+            width={202}
+            height={243}
+            alt={name}
+            className="rounded-lg"
+          />
+        </div>
+
+        {/* --- Tablet Image (shown 768px - 1279px) --- */}
+        {/* This is the 689x352 background container */}
+        <div
+          className="hidden md:flex xl:hidden 
+                     w-full h-[352px] bg-gray-light rounded-lg 
+                     items-center justify-center"
+        >
+          {/* This is the 170x243 image */}
+          <Image
+            src={image.tablet}
+            width={170}
+            height={243}
+            alt={name}
+            className="rounded-lg"
+          />
+        </div>
+
+        {/* --- Desktop Image (shown >= 1280px) --- */}
+        {/* This is the 540x560 background container */}
+        <div
+          className="hidden xl:flex items-center justify-center 
+                     w-[540px] h-[560px] bg-gray-light rounded-lg"
+        >
+          {/* This is the 291x350 image */}
+          <Image
+            src={image.desktop}
+            width={291}
+            height={350}
+            alt={name}
+            className="rounded-lg"
+          />
+        </div>
       </div>
 
       {/* 2. Text Content Column */}
       <div
-        className={`w-full lg:w-1/2 text-center lg:text-left
-                    flex flex-col items-center lg:items-start
-                    ${reverseLayout ? "lg:order-1" : "lg:order-2"}`}
+        className={`
+          w-full flex flex-col items-center mt-8
+          xl:flex-1 xl:items-start xl:mt-0
+        `}
       >
         {isNew && (
           <p className="text-sm uppercase tracking-overline text-orange-primary mb-4">
@@ -72,12 +98,20 @@ export default function CategoryProduct({
           </p>
         )}
 
-        <h2 className="text-3xl font-bold uppercase text-black-dark 
-                       md:text-4xl max-w-xs">
+        <h2
+          className="text-3xl font-bold uppercase text-black-dark 
+                     md:text-4xl max-w-xs"
+        >
           {name}
         </h2>
 
-        <p className="text-base font-medium text-black-dark text-opacity-50 my-6">
+        {/* This <p> tag now has sizes for mobile, tablet, and desktop */}
+        <p
+          className="text-base font-medium text-black-dark text-opacity-50 my-6
+                     max-w-[327px] 
+                     md:max-w-[572px] 
+                     xl:max-w-none"
+        >
           {description}
         </p>
 

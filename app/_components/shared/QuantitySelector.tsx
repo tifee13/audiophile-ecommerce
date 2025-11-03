@@ -2,12 +2,31 @@
 "use client";
 
 import { useState } from "react";
+import { useCartStore, CartItem } from "@/app/_store/cartStore";
 
-export default function QuantitySelector() {
+// Define the props we expect
+type QuantitySelectorProps = {
+  product: Omit<CartItem, "quantity">; // Receive all item details except quantity
+};
+
+export default function QuantitySelector({ product }: QuantitySelectorProps) {
   const [quantity, setQuantity] = useState(1);
+
+  // Get the 'addItem' function from our store
+  const addItem = useCartStore((state) => state.addItem);
 
   const increment = () => setQuantity((q) => q + 1);
   const decrement = () => setQuantity((q) => (q > 1 ? q - 1 : 1));
+
+  const handleAddToCart = () => {
+    // Call the store action
+    addItem({
+      ...product,
+      quantity: quantity,
+    });
+    // Optional: show a confirmation toast/message
+    console.log(`${quantity} of ${product.name} added to cart`);
+  };
 
   return (
     <div className="flex">
@@ -28,8 +47,9 @@ export default function QuantitySelector() {
         </button>
       </div>
 
-      {/* Add to Cart Button (We'll use our existing Button component styles) */}
+      {/* Add to Cart Button */}
       <button
+        onClick={handleAddToCart}
         className="bg-orange-primary text-white hover:bg-orange-light 
                    inline-block px-7 py-3.5 uppercase text-xs font-bold 
                    tracking-wider transition-colors ml-4"

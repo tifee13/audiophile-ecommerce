@@ -22,16 +22,16 @@ const categories = [
 
 export default function HomeCategories() {
   return (
-    <section className="container mx-auto px-6 py-24 
-                      lg:px-16">
-      {/* - On mobile: stack them vertically (flex-col)
-        - On tablet (md): lay them out in a row
-        - Use 'gap-16' for mobile spacing
-        - Use 'gap-3' for tablet/desktop spacing
-      */}
-      <div className="flex flex-col items-center gap-16
-                      md:flex-row md:gap-3
-                      lg:gap-8">
+    // This section itself doesn't need padding,
+    // as its parent <main> tag will control the max-width.
+    <section>
+      <div
+        className="
+          flex flex-col items-center gap-16  /* Mobile: stacked with 64px gap */
+          md:flex-row md:gap-3               /* Tablet: row with 12px gap */
+          lg:gap-[30px]                      /* Desktop: row with 30px gap */
+        "
+      >
         {categories.map((category) => (
           <CategoryCard
             key={category.href}

@@ -10,13 +10,19 @@ const links = [
 
 export default function NavLinks() {
   return (
-    <nav className="flex flex-col items-center gap-4 text-white text-xs uppercase tracking-widest font-bold 
-                    lg:flex-row lg:gap-8">
+    <nav
+      className="
+        flex flex-col items-center gap-4 
+        text-white text-xs uppercase tracking-widest font-bold 
+        
+        md:flex-row md:gap-8 /* <-- THIS IS THE FIX */
+      "
+    >
       {links.map((link) => (
         <Link
           key={link.href}
           href={link.href}
-          className="hover:text-orange-500 transition-colors"
+          className="hover:text-orange-primary transition-colors"
         >
           {link.label}
         </Link>

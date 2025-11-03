@@ -1,11 +1,12 @@
 // app/category/[slug]/page.tsx
+
 import CategoryHeader from "@/app/_components/categories/CategoryHeader";
 import CategoryProduct from "@/app/_components/categories/CategoryProduct";
 import HomeCategories from "@/app/_components/home/HomeCategories";
 import BestGear from "@/app/_components/shared/BestGear";
 
 // --- Mock Data ---
-// In a real app, we'd fetch this from Convex based on the `slug`
+// (Your complete categoryData object should be here)
 const categoryData = {
   headphones: {
     name: "Headphones",
@@ -34,42 +35,102 @@ const categoryData = {
           desktop: "/assets/product-xx99-mark-i-headphones/desktop/image-category-page-preview.jpg",
         },
       },
-      // ... add other headphone products here
+      {
+        slug: "xx59-headphones",
+        name: "XX59 Headphones",
+        description:
+          "Enjoy your audio private and distraction-free with the XX59 headphones. It is the perfect companion for mixing, mastering, and critical listening in a studio environment.",
+        isNew: false,
+        image: {
+          mobile: "/assets/product-xx59-headphones/mobile/image-category-page-preview.jpg",
+          tablet: "/assets/product-xx59-headphones/tablet/image-category-page-preview.jpg",
+          desktop: "/assets/product-xx59-headphones/desktop/image-category-page-preview.jpg",
+        },
+      },
     ],
   },
-  // ... add 'speakers' and 'earphones' data here
+  speakers: {
+    name: "Speakers",
+    products: [
+      {
+        slug: "zx9-speaker",
+        name: "ZX9 Speaker",
+        description:
+          "Upgrade your sound system with the all new ZX9 active speaker. It’s a bookshelf speaker system that offers truly wireless connectivity -- creating new possibilities for more pleasing and practical audio setups.",
+        isNew: true,
+        image: {
+          mobile: "/assets/product-zx9-speaker/mobile/image-category-page-preview.jpg",
+          tablet: "/assets/product-zx9-speaker/tablet/image-category-page-preview.jpg",
+          desktop: "/assets/product-zx9-speaker/desktop/image-category-page-preview.jpg",
+        },
+      },
+      {
+        slug: "zx7-speaker",
+        name: "ZX7 Speaker",
+        description:
+          "Stream high quality sound wirelessly with minimal loss. The ZX7 bookshelf speaker uses high-end audiophile components that represents the pinnacle of acoustic reproduction.",
+        isNew: false,
+        image: {
+          mobile: "/assets/product-zx7-speaker/mobile/image-category-page-preview.jpg",
+          tablet: "/assets/product-zx7-speaker/tablet/image-category-page-preview.jpg",
+          desktop: "/assets/product-zx7-speaker/desktop/image-category-page-preview.jpg",
+        },
+      },
+    ],
+  },
+  earphones: {
+    name: "Earphones",
+    products: [
+      {
+        slug: "yx1-earphones",
+        name: "YX1 Wireless Earphones",
+        description:
+          "Tailor your listening experience with bespoke dynamic drivers from the new YX1 Wireless Earphones. Enjoy incredible high-fidelity sound even in noisy environments with its active noise cancellation feature.",
+        isNew: true,
+        image: {
+          mobile: "/assets/product-yx1-earphones/mobile/image-category-page-preview.jpg",
+          tablet: "/assets/product-yx1-earphones/tablet/image-category-page-preview.jpg",
+          desktop: "/assets/product-yx1-earphones/desktop/image-category-page-preview.jpg",
+        },
+      },
+    ],
+  },
 };
 // --- End Mock Data ---
 
-// This params object is passed by Next.js and contains the dynamic part of the URL
+// 1. Update the Props type to accept a Promise
 type CategoryPageProps = {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 };
 
-export default function CategoryPage({ params }: CategoryPageProps) {
-  // Get the slug from the URL (e.g., "headphones")
-  const { slug } = params;
+// 2. Make the component function `async`
+export default async function CategoryPage({ params }: CategoryPageProps) {
+  
+  const resolvedParams = await params;
+  const { slug } = resolvedParams;
 
-  // Find the correct data.
-  // We use a type assertion here for simplicity with our mock data.
   const data = categoryData[slug as keyof typeof categoryData];
 
-  // Handle case where the slug doesn't match
   if (!data) {
     return <div>Category not found</div>;
   }
 
   return (
     <main>
-      <CategoryHeader categoryName={data.name} />
-
-      {/* Main content container */}
-      <div className="container mx-auto px-6 lg:px-16 
-                      py-24 lg:py-40
-                      flex flex-col gap-24 lg:gap-40">
-        
+      {/* --- THIS IS THE CORRECTED DIV --- */}
+      <div
+        className="
+          mx-auto max-w-[1110px] 
+          px-6 md:px-10 xl:px-0  /* <--- ADD THESE CLASSES */
+          py-12 lg:py-20
+          flex flex-col gap-24 lg:gap-40
+        "
+      >
+        {/* <div> 
+          <GoBackLink />
+        </div> */}
         {/* Products List */}
         <section className="flex flex-col gap-24 lg:gap-40">
           {data.products.map((product, index) => (
@@ -80,7 +141,6 @@ export default function CategoryPage({ params }: CategoryPageProps) {
               description={product.description}
               isNew={product.isNew}
               image={product.image}
-              // Reverse layout for every even-indexed product (0, 2, 4...)
               reverseLayout={index % 2 !== 0}
             />
           ))}

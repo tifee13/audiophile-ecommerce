@@ -3,26 +3,31 @@ import Button from "../shared/Button";
 
 export default function Hero() {
   return (
-    // The main section. It's black as a fallback and uses 
-    // different background images for each breakpoint.
     <section
-      className="relative bg-black-dark 
-                 bg-[url('/assets/home/mobile/image-hero.jpg')] 
-                 md:bg-[url('/assets/home/tablet/image-hero.jpg')] 
-                 lg:bg-[url('/assets/home/desktop/image-hero.jpg')] 
-                 bg-cover bg-center bg-no-repeat"
+      className="
+        relative bg-black-dark 
+        bg-[url('/assets/home/mobile/image-hero.jpg')] 
+        md:bg-[url('/assets/home/tablet/image-hero.jpg')] 
+        lg:bg-[url('/assets/home/desktop/image-hero.jpg')] 
+        bg-cover bg-center bg-no-repeat
+        lg:bg-contain lg:bg-[position:80%_center]        
+        /* Set responsive height of the entire section */
+        h-[600px] md:h-[729px] lg:h-[729px] /* 729px - 97px header = 632px */
+      "
     >
-      {/* We add a min-height and padding-top to account for the absolute header */}
       <div
-        className="container mx-auto px-6 
-                   flex flex-col items-center text-center 
-                   min-h-[600px] justify-center 
-                   md:items-start md:text-left
-                   lg:px-16
-                   pt-24" // Push content below the header
+        className="
+          relative mx-auto max-w-[1110px] 
+          w-full 
+          h-full 
+          px-6 md:px-10 xl:px-0
+          flex flex-col justify-center 
+          items-center text-center 
+          lg:items-start lg:text-left
+        "
       >
         {/* Text Content Container */}
-        <div className="max-w-sm text-white">
+        <div className="max-w-[398px] text-white">
           <p className="text-sm uppercase tracking-overline text-white text-opacity-50 mb-4">
             New Product
           </p>
@@ -37,8 +42,7 @@ export default function Hero() {
             Experience natural, lifelike audio and exceptional build
             quality made for the passionate music enthusiast.
           </p>
-
-          {/* Our reusable Button component */}
+          
           <Button
             href="/products/xx99-mark-ii-headphones"
             label="See Product"

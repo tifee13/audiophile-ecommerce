@@ -1,4 +1,10 @@
 // app/products/[slug]/page.tsx
+"use client";
+
+import { useParams } from "next/navigation";
+import { useQuery } from "convex/react";
+import { api } from "@/convex/_generated/api";
+
 import GoBackLink from "@/app/_components/shared/GoBackLink";
 import ProductDetails from "@/app/_components/products/ProductDetails";
 import ProductFeatures from "@/app/_components/products/ProductFeatures";
@@ -7,88 +13,88 @@ import RelatedProducts from "@/app/_components/products/RelatedProducts";
 import HomeCategories from "@/app/_components/home/HomeCategories";
 import BestGear from "@/app/_components/shared/BestGear";
 
-// --- MOCK DATA ---
-// In a real app, this data would come from Convex
-const MOCK_PRODUCT = {
-  name: "XX99 Mark II Headphones",
-  slug: "xx99-mark-ii-headphones",
-  price: 2999,
-  description:
-    "The new XX99 Mark II Headphones is the pinnacle of pristine audio. It redefines your premium headphone experience by reproducing the balanced depth and precision of studio-quality sound.",
-  isNew: true,
-  features:
-    "Featuring a new-generation 50mm driver with a bio-cellulose diaphragm... \n\n(Add the full features text here, including new paragraphs)",
-  includedItems: [
-    { quantity: 1, item: "Headphone unit" },
-    { quantity: 2, item: "Replacement earcups" },
-    { quantity: 1, item: "User manual" },
-    { quantity: 1, item: "3.5mm 5m audio cable" },
-    { quantity: 1, item: "Travel bag" },
-  ],
-  image: {
-    mobile: "/assets/product-xx99-mark-ii-headphones/mobile/image-product.jpg",
-    tablet: "/assets/product-xx99-mark-ii-headphones/tablet/image-product.jpg",
-    desktop: "/assets/product-xx99-mark-ii-headphones/desktop/image-product.jpg",
-  },
-  gallery: {
-    first: {
-      mobile: "/assets/product-xx99-mark-ii-headphones/mobile/image-gallery-1.jpg",
-      tablet: "/assets/product-xx99-mark-ii-headphones/tablet/image-gallery-1.jpg",
-      desktop: "/assets/product-xx99-mark-ii-headphones/desktop/image-gallery-1.jpg",
-    },
-    second: {
-      mobile: "/assets/product-xx99-mark-ii-headphones/mobile/image-gallery-2.jpg",
-      tablet: "/assets/product-xx99-mark-ii-headphones/tablet/image-gallery-2.jpg",
-      desktop: "/assets/product-xx99-mark-ii-headphones/desktop/image-gallery-2.jpg",
-    },
-    third: {
-      mobile: "/assets/product-xx99-mark-ii-headphones/mobile/image-gallery-3.jpg",
-      tablet: "/assets/product-xx99-mark-ii-headphones/tablet/image-gallery-3.jpg",
-      desktop: "/assets/product-xx99-mark-ii-headphones/desktop/image-gallery-3.jpg",
-    },
-  },
-  relatedProducts: [
-    "xx99-mark-i-headphones",
-    "xx59-headphones",
-    "zx9-speaker",
-  ],
-};
-// --- END MOCK DATA ---
+export default function ProductPage() {
+  const params = useParams();
+  const slug = params.slug as string;
+  const product = useQuery(api.products.getProductBySlug, { slug });
 
-type ProductPageProps = {
-  params: {
-    slug: string;
-  };
-};
+  // Handle Loading State
+  if (product === undefined) {
+    return (
+      <main>
+        <div className="container mx-auto px-6 py-12 lg:py-20">
+          <GoBackLink />
+          <p className="mt-10">Loading...</p>
+        </div>
+      </main>
+    );
+  }
 
-export default function ProductPage({ params }: ProductPageProps) {
-  // In a real app, we'd use params.slug to fetch from Convex
-  const product = MOCK_PRODUCT;
+  // Handle Not Found State
+  if (product === null) {
+    return (
+      <main>
+        <div className="container mx-auto px-6 py-12 lg:py-20">
+          <GoBackLink />
+          <p className="mt-10">Product not found.</p>
+        </div>
+      </main>
+    );
+  }
 
   return (
     <main>
-      <div className="container mx-auto px-6 lg:px-16 
-                      py-12 lg:py-20
-                      flex flex-col gap-24 lg:gap-40">
-
-        <div className="pt-16"> {/* Padding to clear the absolute header */}
+      {/* This is the main content container.
+        We apply all padding and max-width here.
+        The gaps between sections are now responsive.
+      */}
+      <div
+        className="
+          mx-auto max-w-[1110px] 
+          px-6 md:px-10 xl:px-0
+          
+          flex flex-col
+          
+          /* Responsive Gaps (Mobile: 88px, Tablet/Desktop: 120px) */
+          gap-[88px]
+          md:gap-[120px]
+          
+          /* Vertical Padding */
+          pt-4 pb-[88px]
+          md:pt-8 md:pb-[120px]
+          lg:pt-20 lg:pb-[160px]
+        "
+      >
+        <div>
           <GoBackLink />
         </div>
 
-        <ProductDetails
-          name={product.name}
-          description={product.description}
-          price={product.price}
-          isNew={product.isNew}
-          image={product.image}
-        />
+        <ProductDetails product={product} />
 
         <ProductFeatures
           features={product.features}
           includedItems={product.includedItems}
         />
 
-        <ProductGallery images={product.gallery} />
+        <ProductGallery
+          images={{
+            first: {
+              mobile: product.gallery_first_mobile,
+              tablet: product.gallery_first_tablet,
+              desktop: product.gallery_first_desktop,
+            },
+            second: {
+              mobile: product.gallery_second_mobile,
+              tablet: product.gallery_second_tablet,
+              desktop: product.gallery_second_desktop,
+            },
+            third: {
+              mobile: product.gallery_third_mobile,
+              tablet: product.gallery_third_tablet,
+              desktop: product.gallery_third_desktop,
+            },
+          }}
+        />
 
         <RelatedProducts relatedSlugs={product.relatedProducts} />
 

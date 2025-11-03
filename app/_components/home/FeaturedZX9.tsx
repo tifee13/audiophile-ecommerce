@@ -4,23 +4,34 @@ import Button from "../shared/Button";
 
 export default function FeaturedZX9() {
   return (
-    <section className="container mx-auto px-6 lg:px-16">
+    // 1. REMOVED all container/padding classes from this <section>
+    //    The parent (app/page.tsx) now handles the 1110px width.
+    <section>
       <div
-        className="relative bg-orange-primary rounded-lg 
-                   px-6 py-14 
-                   flex flex-col items-center text-center
-                   lg:flex-row lg:text-left lg:px-24 lg:pt-24 lg:pb-0
-                   overflow-hidden" // This is key to containing the circles
+        className="
+          relative bg-orange-primary rounded-lg
+          overflow-hidden
+          
+          /* Mobile/Tablet: Stacked, centered, padding */
+          flex flex-col items-center text-center
+          px-6 py-14 
+          md:px-16 
+          
+          /* Desktop: Row, 560px height, specific padding */
+          lg:flex-row lg:text-left 
+          lg:h-[560px] /* <-- This is the 560px height */
+          lg:px-24 lg:pt-24 lg:pb-0
+        "
       >
         {/* 1. Background Circle Pattern */}
         <Image
-          src="/assets/home/desktop/image-pattern-circles.svg"
-          width={944} // Width of the SVG itself
-          height={944} // Height of the SVG itself
+          src="/assets/home/desktop/image-pattern-circles.png" // Using the .png from your file tree
+          width={944} 
+          height={944} 
           alt=""
           aria-hidden="true"
           className="absolute -top-32 left-1/2 -translate-x-1/2 
-                     lg:left-auto lg:-top-16 lg:-translate-x-1/4"
+                     lg:left-auto lg:-top-[4.5rem] lg:-translate-x-[7rem]" // Fine-tuned desktop position
         />
 
         {/* 2. Product Image */}
@@ -42,13 +53,13 @@ export default function FeaturedZX9() {
             alt="ZX9 Speaker"
             className="hidden md:block lg:hidden mb-8"
           />
-          {/* Desktop Image */}
+          {/* Desktop Image (410x493) - anchored to bottom */}
           <Image
             src="/assets/home/desktop/image-speaker-zx9.png"
             width={410}
             height={493}
             alt="ZX9 Speaker"
-            className="hidden lg:block"
+            className="hidden lg:block relative -bottom-[1px]" // Sits on the bottom edge
           />
         </div>
 
@@ -65,8 +76,7 @@ export default function FeaturedZX9() {
             Upgrade to premium speakers that are phenomenally built to
             deliver truly remarkable sound.
           </p>
-
-          {/* Reusable Button, secondary variant */}
+          
           <Button
             href="/products/zx9-speaker"
             label="See Product"
