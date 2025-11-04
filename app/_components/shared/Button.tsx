@@ -1,4 +1,3 @@
-// app/_components/shared/Button.tsx
 import Link from "next/link";
 
 type ButtonProps = {
@@ -12,7 +11,6 @@ export default function Button({
   label,
   variant = "primary",
 }: ButtonProps) {
-  // Define styles for each variant
   const baseStyle =
     "inline-block px-7 py-3.5 uppercase text-xs font-bold tracking-wider transition-colors";
 

@@ -1,11 +1,10 @@
-// app/_components/confirmation/OrderSummaryCard.tsx
 "use client";
 
 import { Doc } from "@/convex/_generated/dataModel";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { useCartStore } from "@/app/_store/cartStore"; // 1. Import the cart store
+import { useCartStore } from "@/app/_store/cartStore";
 
 type OrderSummaryCardProps = {
   order: Doc<"orders">;
@@ -13,10 +12,10 @@ type OrderSummaryCardProps = {
 
 export default function OrderSummaryCard({ order }: OrderSummaryCardProps) {
   const [showAllItems, setShowAllItems] = useState(false);
-  const clearCart = useCartStore((state) => state.clearCart); // 2. Get the clearCart function
+  const clearCart = useCartStore((state) => state.clearCart); 
 
   const handleBackToHome = () => {
-    clearCart(); // 3. Call clearCart when the button is clicked
+    clearCart(); 
   };
 
   const itemsToShow = showAllItems ? order.items : [order.items[0]];
@@ -24,7 +23,6 @@ export default function OrderSummaryCard({ order }: OrderSummaryCardProps) {
 
   return (
     <div className="bg-white rounded-lg p-6 md:p-10 max-w-lg mx-auto">
-      {/* 1. Thank You Header */}
       <Image
         src="/assets/shared/icon-order-confirmation.svg"
         width={64}
@@ -41,9 +39,8 @@ export default function OrderSummaryCard({ order }: OrderSummaryCardProps) {
         You will receive an email confirmation shortly.
       </p>
 
-      {/* 2. Order Details */}
       <div className="flex flex-col md:flex-row rounded-lg overflow-hidden">
-        {/* 2a. Items List */}
+
         <div className="bg-gray-light p-6 flex-grow">
           {itemsToShow.map((item) => (
             <div key={item.productId} className="flex items-center justify-between">
@@ -52,11 +49,11 @@ export default function OrderSummaryCard({ order }: OrderSummaryCardProps) {
                   src={item.image}
                   width={50}
                   height={50}
-                  alt={item.name}
+                  alt={item.shortName}
                   className="rounded-lg"
                 />
                 <div>
-                  <p className="font-bold">{item.name}</p>
+                  <p className="font-bold">{item.shortName}</p>
                   <p className="text-sm text-black-dark text-opacity-50">
                     $ {item.price.toLocaleString()}
                   </p>
@@ -68,7 +65,7 @@ export default function OrderSummaryCard({ order }: OrderSummaryCardProps) {
             </div>
           ))}
 
-          {/* Toggle Button */}
+
           {order.items.length > 1 && (
             <button
               onClick={() => setShowAllItems(!showAllItems)}
@@ -82,7 +79,6 @@ export default function OrderSummaryCard({ order }: OrderSummaryCardProps) {
           )}
         </div>
 
-        {/* 2b. Grand Total */}
         <div className="bg-black-dark text-white p-6 md:w-2/5">
           <span className="uppercase text-white text-opacity-50">
             Grand Total
@@ -93,10 +89,9 @@ export default function OrderSummaryCard({ order }: OrderSummaryCardProps) {
         </div>
       </div>
 
-      {/* 4. Back to Home Button */}
       <Link
         href="/"
-        onClick={handleBackToHome} // <-- 4. Add the onClick handler here
+        onClick={handleBackToHome}
         className="bg-orange-primary text-white hover:bg-orange-light
                        w-full block py-3.5 uppercase text-xs font-bold 
                        tracking-wider transition-colors text-center mt-8"

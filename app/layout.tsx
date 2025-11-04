@@ -1,4 +1,3 @@
-// app/layout.tsx
 import type { Metadata } from "next";
 import { Manrope } from "next/font/google";
 import "./globals.css";
@@ -25,7 +24,6 @@ export default function RootLayout({
     <html lang="en">
       <body className={manrope.className}>
           <ConvexClientProvider>
-          {/* This div ensures the footer stays at the bottom */}
           <div className="flex flex-col min-h-screen">
             <Header />
             <main className="relative">{children}</main>

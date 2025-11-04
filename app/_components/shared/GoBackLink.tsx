@@ -1,4 +1,3 @@
-// app/_components/shared/GoBackLink.tsx
 "use client";
 
 import { useRouter } from "next/navigation";

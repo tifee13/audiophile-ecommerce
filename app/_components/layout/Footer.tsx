@@ -1,4 +1,3 @@
-// app/_components/layout/Footer.tsx
 import Image from "next/image";
 import Link from "next/link";
 import NavLinks from "./NavLinks";
@@ -25,20 +24,20 @@ export default function Footer() {
   return (
     <footer className="bg-black-dark text-white mt-auto relative">
       
-      {/* --- THIS IS THE CORRECTED ORANGE LINE --- */}
       <div 
         className="
           absolute top-0 w-24 h-1 bg-orange-primary
-
+          left-1/2 -translate-x-1/2
+          md:left-10 md:-translate-x-0
+          xl:left-1/2 xl:-translate-x-[555px]
         " 
       />
 
-      {/* This inner div is the main content container */}
       <div
         className="
           mx-auto max-w-[1110px] 
           
-          px-6 pt-12 pb-12 /* pt-12 for mobile gives space for the line */
+          px-6 pt-12 pb-12
           md:px-10 md:pt-14 md:pb-14 
           xl:px-0 xl:pt-[75px] xl:pb-[48px]
           
@@ -47,7 +46,6 @@ export default function Footer() {
         "
       >
 
-        {/* Top Section: Logo (and Nav on Desktop) */}
         <div
           className="
             flex flex-col items-center w-full 
@@ -61,13 +59,11 @@ export default function Footer() {
             height={25}
             alt="Audiophile logo"
           />
-          {/* NavLinks: Hidden on Mobile/Tablet, shown on Desktop */}
           <div className="hidden xl:block">
             <NavLinks />
           </div>
         </div>
 
-        {/* Middle Section: Nav (Mobile/Tablet) & Description */}
         <div
           className="
             flex flex-col items-center text-center w-full
@@ -75,12 +71,9 @@ export default function Footer() {
             xl:flex-row xl:justify-between xl:mt-9
           "
         >
-          {/* NavLinks: Shown on Mobile/Tablet, hidden on Desktop */}
           <div className="mt-12 md:mt-8 xl:hidden">
             <NavLinks />
           </div>
-
-          {/* Description */}
           <p
             className="
               text-white text-opacity-50 text-[15px] font-medium mt-12
@@ -95,7 +88,6 @@ export default function Footer() {
           </p>
         </div>
 
-        {/* Bottom Section: Copyright & Social */}
         <div
           className="
             flex flex-col items-center w-full mt-12
@@ -107,12 +99,11 @@ export default function Footer() {
             Copyright {new Date().getFullYear()}. All Rights Reserved
           </p>
 
-          {/* Social Icons */}
           <div
             className="
               flex gap-4 mt-12
               md:mt-0 
-              xl:-translate-y-16 /* Pulls icons up on desktop */
+              xl:-translate-y-16
             "
           >
             {socialIcons.map((social) => (
@@ -120,7 +111,8 @@ export default function Footer() {
                 key={social.href}
                 href={social.href}
                 aria-label={`Visit our ${social.label} page`}
-                className="text-white hover:text-orange-primary transition-colors"                >
+                className="text-white hover:text-orange-primary transition-colors"
+              >
                 <Image
                   src={social.icon}
                   width={24}

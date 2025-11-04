@@ -1,5 +1,3 @@
-// app/_components/categories/CategoryHeader.tsx
-
 type CategoryHeaderProps = {
   categoryName: string;
 };

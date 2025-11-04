@@ -1,4 +1,3 @@
-// app/_components/emails/ConfirmationEmail.tsx
 import {
   Body,
   Button,
@@ -17,7 +16,7 @@ import { Doc } from "../_generated/dataModel";
 type ConfirmationEmailProps = {
   order: Doc<"orders">;
   orderId: string;
-  appUrl: string; // URL to your live site
+  appUrl: string;
 };
 
 export default function ConfirmationEmail({
@@ -47,7 +46,7 @@ export default function ConfirmationEmail({
               <Row key={item.productId}>
                 <Column>
                   <Text style={itemText}>
-                    {item.name} <strong>(x{item.quantity})</strong>
+                    {item.shortName} <strong>(x{item.quantity})</strong>
                   </Text>
                 </Column>
                 <Column align="right">
@@ -91,7 +90,6 @@ export default function ConfirmationEmail({
   );
 }
 
-// --- Basic Styles ---
 const main = {
   backgroundColor: "#f1f1f1",
   fontFamily: "Manrope, sans-serif",

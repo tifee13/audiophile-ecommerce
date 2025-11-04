@@ -1,4 +1,3 @@
-// app/_components/checkout/CheckoutForm.tsx
 "use client";
 
 import { useForm } from "react-hook-form";
@@ -8,14 +7,11 @@ import FormInput from "./FormInput";
 import { useState } from "react";
 import Image from "next/image";
 
-// We'll define the onSubmit function here
-// It will eventually call a Convex mutation
 type CheckoutFormProps = {
   onFormSubmit: (data: TCheckoutSchema) => void;
 };
 
 export default function CheckoutForm({ onFormSubmit }: CheckoutFormProps) {
-  // ... (useState and useForm hooks remain the same)
   const {
     register,
     handleSubmit,
@@ -32,11 +28,10 @@ export default function CheckoutForm({ onFormSubmit }: CheckoutFormProps) {
 
   return (
     <form
-      onSubmit={handleSubmit(onFormSubmit)} // 2. Use the prop here
+      onSubmit={handleSubmit(onFormSubmit)}
       className="flex flex-col gap-8"
       id="checkout-form"
     >
-      {/* --- BILLING DETAILS --- */}
       <fieldset className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <legend className="text-sm font-bold uppercase text-orange-primary mb-4 col-span-full">
           Billing Details
@@ -64,7 +59,6 @@ export default function CheckoutForm({ onFormSubmit }: CheckoutFormProps) {
         />
       </fieldset>
 
-      {/* --- SHIPPING INFO --- */}
       <fieldset className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <legend className="text-sm font-bold uppercase text-orange-primary mb-4 col-span-full">
           Shipping Info
@@ -101,13 +95,11 @@ export default function CheckoutForm({ onFormSubmit }: CheckoutFormProps) {
         />
       </fieldset>
 
-      {/* --- PAYMENT DETAILS --- */}
       <fieldset className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <legend className="text-sm font-bold uppercase text-orange-primary mb-4 col-span-full">
           Payment Details
         </legend>
 
-        {/* Payment Method Selection */}
         <label className="text-xs font-bold md:col-span-1">Payment Method</label>
         <div className="flex flex-col gap-4 md:col-span-1">
           <label
@@ -144,7 +136,7 @@ export default function CheckoutForm({ onFormSubmit }: CheckoutFormProps) {
           </label>
         </div>
 
-        {/* Conditional Fields */}
+
         {selectedPaymentMethod === "eMoney" && (
           <div className="md:col-span-2 grid md:grid-cols-2 gap-6 mt-4">
             <FormInput
@@ -181,8 +173,6 @@ export default function CheckoutForm({ onFormSubmit }: CheckoutFormProps) {
           </div>
         )}
       </fieldset>
-
-      {/* NOTE: The submit button is in the Summary component! */}
     </form>
   );
 }

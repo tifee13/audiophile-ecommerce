@@ -1,49 +1,64 @@
-// app/_components/products/ProductDetails.tsx
 import Image from "next/image";
 import QuantitySelector from "../shared/QuantitySelector";
-import { Doc } from "@/convex/_generated/dataModel"; // 1. Import Doc type
+import { Doc } from "@/convex/_generated/dataModel";
 
-// 2. Change the props to accept the whole product document
 type ProductDetailsProps = {
   product: Doc<"products">;
 };
 
 export default function ProductDetails({ product }: ProductDetailsProps) {
-  // 3. Use the product object for all data
   return (
     <article
-      className="flex flex-col items-center gap-8
-                 md:flex-row md:gap-16"
+      className="
+        flex flex-col items-center gap-8
+        
+        md:flex-row md:items-center md:gap-[69px]
+        
+        lg:gap-[125px] 
+      "
     >
-      {/* 1. Image Column */}
-      <div className="w-full md:w-1/2">
+      <div
+        className="
+          w-full bg-gray-light rounded-lg 
+          flex items-center justify-center 
+          overflow-hidden
+          
+          h-[327px]
+          md:w-[281px] md:h-[480px]  
+          lg:w-[540px] lg:h-[560px]
+        "
+      >
         <Image
           src={product.productImage_mobile}
-          width={654}
-          height={704}
+          width={327}
+          height={327}
           alt={product.name}
-          className="block md:hidden rounded-lg w-full"
+          className="block md:hidden w-full h-full object-cover rounded-lg"
         />
+        
         <Image
           src={product.productImage_tablet}
-          width={562}
-          height={960}
+          width={281}
+          height={480} 
           alt={product.name}
-          className="hidden md:block lg:hidden rounded-lg w-full"
+          className="hidden md:block lg:hidden rounded-lg"
         />
+
         <Image
           src={product.productImage_desktop}
-          width={540}
-          height={560}
+          width={540} 
+          height={560} 
           alt={product.name}
-          className="hidden lg:block rounded-lg w-full"
+          className="hidden lg:block w-auto h-auto max-h-[450px] rounded-lg"
         />
       </div>
 
-      {/* 2. Text Content Column */}
       <div
-        className="w-full md:w-1/2
-                    flex flex-col items-start"
+        className="
+          w-full flex flex-col items-start
+          md:w-auto md:flex-1
+          lg:justify-center 
+        "
       >
         {product.new && (
           <p className="text-sm uppercase tracking-overline text-orange-primary mb-4">
@@ -52,7 +67,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
         )}
 
         <h1 className="text-3xl font-bold uppercase text-black-dark 
-                       md:text-4xl max-w-xs">
+                       md:text-4xl">
           {product.name}
         </h1>
 
@@ -64,12 +79,10 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
           $ {product.price.toLocaleString()}
         </span>
 
-        {/* 3. --- THIS IS THE FINAL FIX --- */}
-        {/* Pass the REAL database ID to the cart */}
         <QuantitySelector
           product={{
-            productId: product._id, // Use the real _id
-            name: product.name,
+            productId: product._id,
+            shortName: product.name,
             price: product.price,
             image: product.productImage_mobile,
           }}

@@ -1,4 +1,4 @@
-// tailwind.config.ts (v3 syntax)
+
 import type { Config } from "tailwindcss";
 
 const config: Config = {
@@ -8,7 +8,6 @@ const config: Config = {
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    // This 'extend' block is now required
     extend: {
       colors: {
         "orange-primary": "#D87D4A",

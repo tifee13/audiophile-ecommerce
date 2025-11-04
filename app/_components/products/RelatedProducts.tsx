@@ -1,11 +1,9 @@
-// app/_components/products/RelatedProducts.tsx
 import Image from "next/image";
 import Button from "../shared/Button";
 
-// This object holds all possible related products so we can look them up by slug
+
 const RELATED_PRODUCTS_DATA = {
 
-  // Past
   "xx99-mark-ii-headphones": {
     name: "XX99 Mark II",
     slug: "xx99-mark-ii-headphones",
@@ -56,9 +54,9 @@ const RELATED_PRODUCTS_DATA = {
     name: "YX1 Earphones",
     slug: "yx1-earphones",
     images: {
-      mobile: "/assets/shared/mobile/image-yx1-earphones.jpg", // You'll need to export this
-      tablet: "/assets/shared/tablet/image-yx1-earphones.jpg", // You'll need to export this
-      desktop: "/assets/shared/desktop/image-yx1-earphones.jpg", // You'll need to export this
+      mobile: "/assets/shared/mobile/image-yx1-earphones.jpg", 
+      tablet: "/assets/shared/tablet/image-yx1-earphones.jpg", 
+      desktop: "/assets/shared/desktop/image-yx1-earphones.jpg",
     },
   },
 };
@@ -76,28 +74,24 @@ export default function RelatedProducts({
         You May Also Like
       </h2>
       
-      {/* This div handles the layout: column on mobile, row on tablet/desktop */}
-      <div className="flex flex-col gap-14 w-full md:flex-row md:gap-3 lg:gap-[30px]">
+z      <div className="flex flex-col gap-14 w-full md:flex-row md:gap-3 lg:gap-[30px]">
         
         {relatedSlugs.map((slug) => {
           const product = RELATED_PRODUCTS_DATA[slug as keyof typeof RELATED_PRODUCTS_DATA];
           if (!product) return null;
 
           return (
-            // This is the container for each of the 3 items
             <div key={slug} className="flex flex-col items-center w-full md:w-1/3">
               
-              {/* Image Card (Gray Box) */}
               <div
                 className="
                   rounded-lg bg-gray-light w-full 
                   flex items-center justify-center
-                  h-[120px] /* Mobile height */
-                  md:h-[318px] /* Tablet & Desktop height */
+                  h-[120px]
+                  md:h-[318px]
                   lg:w-[350px]
                 "
               >
-                {/* Mobile Image */}
                 <Image
                   src={product.images.mobile}
                   width={80}
@@ -105,7 +99,6 @@ export default function RelatedProducts({
                   alt={product.name}
                   className="block md:hidden"
                 />
-                {/* Tablet Image */}
                 <Image
                   src={product.images.tablet}
                   width={121}
@@ -113,7 +106,6 @@ export default function RelatedProducts({
                   alt={product.name}
                   className="hidden md:block lg:hidden"
                 />
-                {/* Desktop Image */}
                 <Image
                   src={product.images.desktop}
                   width={147}
@@ -123,7 +115,6 @@ export default function RelatedProducts({
                 />
               </div>
 
-              {/* Name & Button */}
               <h3 className="text-2xl font-bold uppercase mt-8 md:mt-10">
                 {product.name}
               </h3>

@@ -1,4 +1,3 @@
-// app/_components/cart/CartQuantitySelector.tsx
 "use client";
 
 import { useCartStore } from "@/app/_store/cartStore";
@@ -12,7 +11,6 @@ export default function CartQuantitySelector({
   productId,
   quantity,
 }: CartQuantitySelectorProps) {
-  // Get the update function from our store
   const updateQuantity = useCartStore((state) => state.updateQuantity);
 
   const increment = () => {
@@ -20,16 +18,12 @@ export default function CartQuantitySelector({
   };
 
   const decrement = () => {
-    // If quantity is 1, it will be removed by the update function
-    // (or you can choose to remove it here)
+
     if (quantity > 1) {
       updateQuantity(productId, quantity - 1);
     } else {
-      // Optional: or just stop at 1
-      // updateQuantity(productId, 1);
 
-      // Let's remove the item if quantity goes to 0
-       updateQuantity(productId, quantity - 1); // This will be handled by store logic later if < 1
+       updateQuantity(productId, quantity - 1);
     }
   };
 

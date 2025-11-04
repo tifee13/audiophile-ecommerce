@@ -1,13 +1,10 @@
-// convex/products.ts
 import { mutation, query } from "./_generated/server";
 import { v } from "convex/values";
 
-// This is the data for one product.
-// You will need to copy this structure and fill it out for ALL your products
-// from the Figma design.
 const SEED_DATA = [
   {
     name: "XX99 Mark II Headphones",
+    shortName: "XX99 MK II",
     slug: "xx99-mark-ii-headphones",
     category: "headphones",
     new: true,
@@ -61,6 +58,7 @@ const SEED_DATA = [
   },
   {
     name: "XX99 Mark I Headphones",
+    shortName: "XX99 MK I",
     slug: "xx99-mark-i-headphones",
     category: "headphones",
     new: false,
@@ -113,6 +111,7 @@ const SEED_DATA = [
   },
   {
     name: "XX59 Headphones",
+    shortName: "XX59",
     slug: "xx59-headphones",
     category: "headphones",
     new: false,
@@ -163,6 +162,7 @@ const SEED_DATA = [
   },
   {
     name: "ZX9 Speaker",
+    shortName: "ZX9",
     slug: "zx9-speaker",
     category: "speakers",
     new: true,
@@ -209,6 +209,7 @@ const SEED_DATA = [
   },
   {
     name: "ZX7 Speaker",
+    shortName: "ZX7",
     slug: "zx7-speaker",
     category: "speakers",
     new: false,
@@ -255,6 +256,7 @@ const SEED_DATA = [
   },
   {
     name: "YX1 Wireless Earphones",
+    shortName: "YX1",
     slug: "yx1-earphones",
     category: "earphones",
     new: true,
@@ -306,21 +308,16 @@ const SEED_DATA = [
   },
 ];
 
-// --- The Mutation ---
-// --- The Mutation ---
 export const seedProducts = mutation({
   handler: async (ctx) => {
-    // 1. Get all existing products
     const existingProducts = await ctx.db.query("products").collect();
 
-    // 2. Delete all of them
     console.log(`Deleting ${existingProducts.length} existing products...`);
     for (const product of existingProducts) {
       await ctx.db.delete(product._id);
     }
     console.log("Existing products deleted.");
 
-    // 3. Insert the new, complete data
     console.log("Seeding database with 6 new products...");
     for (const product of SEED_DATA) {
       await ctx.db.insert("products", product);
@@ -331,17 +328,15 @@ export const seedProducts = mutation({
   },
 });
 
-// --- Query to get a product by its slug ---
 export const getProductBySlug = query({
   args: {
     slug: v.string(),
   },
   handler: async (ctx, args) => {
-    // Query the 'by_slug' index we defined in our schema
     const product = await ctx.db
       .query("products")
       .withIndex("by_slug", (q) => q.eq("slug", args.slug))
-      .first(); // Get the first (and only) matching product
+      .first();
 
     return product;
   },

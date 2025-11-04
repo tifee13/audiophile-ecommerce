@@ -1,16 +1,8 @@
-// app/_components/home/FeaturedZX7.tsx
 import Button from "../shared/Button";
 
 export default function FeaturedZX7() {
   return (
-    // The <section> tag is now plain, as the <main> tag in page.tsx
-    // is handling the max-width and centering.
     <section>
-      {/* This div is the main banner.
-        - h-[320px] sets the fixed height for all breakpoints.
-        - flex items-center vertically centers the text content.
-        - Responsive padding matches Figma (lg:px-[95px] is key).
-      */}
       <div
         className="
           relative rounded-lg 
@@ -23,7 +15,6 @@ export default function FeaturedZX7() {
           bg-cover bg-center bg-no-repeat
         "
       >
-        {/* Text Content */}
         <div className="flex flex-col items-start gap-8">
           <h2 className="text-3xl font-bold uppercase text-black-dark">
             ZX7 Speaker

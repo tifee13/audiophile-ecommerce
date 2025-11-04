@@ -1,22 +1,19 @@
-"use client"; // This component must be a client component
+"use client"; 
 
 import { ReactNode } from "react";
 import { ConvexReactClient } from "convex/react";
-import { ConvexProvider } from "convex/react"; // Use the standard provider
+import { ConvexProvider } from "convex/react"; 
 
-// Initialize the Convex client
 const convex = new ConvexReactClient(
   process.env.NEXT_PUBLIC_CONVEX_URL!
 );
 
-// This component wraps our entire app
 export default function ConvexClientProvider({
   children,
 }: {
   children: ReactNode;
 }) {
   return (
-    // Use the standard ConvexProvider
     <ConvexProvider client={convex}>
       {children}
     </ConvexProvider>

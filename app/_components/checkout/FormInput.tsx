@@ -1,11 +1,10 @@
-// app/_components/checkout/FormInput.tsx
 import { UseFormRegisterReturn } from "react-hook-form";
 
 type FormInputProps = {
   label: string;
   name: string;
-  register: UseFormRegisterReturn; // From react-hook-form
-  error?: string; // The error message
+  register: UseFormRegisterReturn;
+  error?: string;
   placeholder?: string;
 };
 

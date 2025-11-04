@@ -1,4 +1,3 @@
-// app/products/[slug]/page.tsx
 "use client";
 
 import { useParams } from "next/navigation";
@@ -18,7 +17,6 @@ export default function ProductPage() {
   const slug = params.slug as string;
   const product = useQuery(api.products.getProductBySlug, { slug });
 
-  // Handle Loading State
   if (product === undefined) {
     return (
       <main>
@@ -30,7 +28,6 @@ export default function ProductPage() {
     );
   }
 
-  // Handle Not Found State
   if (product === null) {
     return (
       <main>
@@ -44,22 +41,13 @@ export default function ProductPage() {
 
   return (
     <main>
-      {/* This is the main content container.
-        We apply all padding and max-width here.
-        The gaps between sections are now responsive.
-      */}
       <div
         className="
           mx-auto max-w-[1110px] 
           px-6 md:px-10 xl:px-0
-          
           flex flex-col
-          
-          /* Responsive Gaps (Mobile: 88px, Tablet/Desktop: 120px) */
           gap-[88px]
           md:gap-[120px]
-          
-          /* Vertical Padding */
           pt-4 pb-[88px]
           md:pt-8 md:pb-[120px]
           lg:pt-20 lg:pb-[160px]

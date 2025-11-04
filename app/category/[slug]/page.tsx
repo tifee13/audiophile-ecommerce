@@ -1,12 +1,7 @@
-// app/category/[slug]/page.tsx
-
-import CategoryHeader from "@/app/_components/categories/CategoryHeader";
 import CategoryProduct from "@/app/_components/categories/CategoryProduct";
 import HomeCategories from "@/app/_components/home/HomeCategories";
 import BestGear from "@/app/_components/shared/BestGear";
 
-// --- Mock Data ---
-// (Your complete categoryData object should be here)
 const categoryData = {
   headphones: {
     name: "Headphones",
@@ -96,16 +91,13 @@ const categoryData = {
     ],
   },
 };
-// --- End Mock Data ---
 
-// 1. Update the Props type to accept a Promise
 type CategoryPageProps = {
   params: Promise<{
     slug: string;
   }>;
 };
 
-// 2. Make the component function `async`
 export default async function CategoryPage({ params }: CategoryPageProps) {
   
   const resolvedParams = await params;
@@ -119,19 +111,14 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
   return (
     <main>
-      {/* --- THIS IS THE CORRECTED DIV --- */}
       <div
         className="
           mx-auto max-w-[1110px] 
-          px-6 md:px-10 xl:px-0  /* <--- ADD THESE CLASSES */
+          px-6 md:px-10 xl:px-0
           py-12 lg:py-20
           flex flex-col gap-24 lg:gap-40
         "
       >
-        {/* <div> 
-          <GoBackLink />
-        </div> */}
-        {/* Products List */}
         <section className="flex flex-col gap-24 lg:gap-40">
           {data.products.map((product, index) => (
             <CategoryProduct
@@ -145,8 +132,6 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
             />
           ))}
         </section>
-
-        {/* Other Sections */}
         <HomeCategories />
         <BestGear />
       </div>

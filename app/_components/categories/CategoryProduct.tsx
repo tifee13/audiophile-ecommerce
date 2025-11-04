@@ -1,4 +1,3 @@
-// app/_components/categories/CategoryProduct.tsx
 import Image from "next/image";
 import Button from "../shared/Button";
 
@@ -31,17 +30,12 @@ export default function CategoryProduct({
         ${reverseLayout ? "xl:flex-row-reverse" : ""}
       `}
     >
-      {/* 1. Image Column */}
       <div className="w-full xl:w-[540px]">
-
-        {/* --- Mobile Image (hidden >= 768px) --- */}
-        {/* This is the 327x352 background container */}
         <div
           className=" md:hidden 
                      w-full h-[352px] bg-gray-light rounded-lg 
                      flex items-center justify-center"
         >
-          {/* This is the 202x243 image */}
           <Image
             src={image.mobile}
             width={202}
@@ -50,15 +44,11 @@ export default function CategoryProduct({
             className="rounded-lg"
           />
         </div>
-
-        {/* --- Tablet Image (shown 768px - 1279px) --- */}
-        {/* This is the 689x352 background container */}
         <div
           className="hidden md:flex xl:hidden 
                      w-full h-[352px] bg-gray-light rounded-lg 
                      items-center justify-center"
         >
-          {/* This is the 170x243 image */}
           <Image
             src={image.tablet}
             width={170}
@@ -68,13 +58,10 @@ export default function CategoryProduct({
           />
         </div>
 
-        {/* --- Desktop Image (shown >= 1280px) --- */}
-        {/* This is the 540x560 background container */}
         <div
           className="hidden xl:flex items-center justify-center 
                      w-[540px] h-[560px] bg-gray-light rounded-lg"
         >
-          {/* This is the 291x350 image */}
           <Image
             src={image.desktop}
             width={291}
@@ -85,7 +72,6 @@ export default function CategoryProduct({
         </div>
       </div>
 
-      {/* 2. Text Content Column */}
       <div
         className={`
           w-full flex flex-col items-center mt-8
@@ -105,7 +91,6 @@ export default function CategoryProduct({
           {name}
         </h2>
 
-        {/* This <p> tag now has sizes for mobile, tablet, and desktop */}
         <p
           className="text-base font-medium text-black-dark text-opacity-50 my-6
                      max-w-[327px] 
