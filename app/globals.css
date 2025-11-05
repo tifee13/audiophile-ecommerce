@@ -1,9 +1,7 @@
-/* app/globals.css (v3 syntax) */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* You can add your root variables and body styles *below* the imports */
 :root {
   --background: #ffffff;
   --foreground: #171717;

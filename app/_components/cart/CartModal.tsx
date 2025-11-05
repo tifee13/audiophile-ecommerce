@@ -1,3 +1,4 @@
+// app/_components/cart/CartModal.tsx
 "use client";
 
 import { useCartStore } from "@/app/_store/cartStore";
@@ -53,7 +54,7 @@ export default function CartModal() {
                       className="rounded-lg"
                     />
                     <div>
-                      <p className="font-bold">{item.shortName}</p>
+                      <p className="font-bold">{item.shortName}</p> {/* <-- FIX HERE */}
                       <p className="text-sm text-black-dark text-opacity-50">
                         $ {item.price.toLocaleString()}
                       </p>
@@ -79,9 +80,9 @@ export default function CartModal() {
 
           <Link
             href="/checkout"
-            onClick={toggleCart} 
+            onClick={toggleCart}
             className="bg-orange-primary text-white hover:bg-orange-light
-                       w-full block py-3.5 uppercase text-xs font-bold 
+                       w-full block py-3.5 uppercase text-xs font-bold
                        tracking-wider transition-colors text-center"
           >
             Checkout

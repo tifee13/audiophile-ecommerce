@@ -1,3 +1,4 @@
+// app/_components/layout/Header.tsx
 "use client";
 
 import { useState } from "react";
@@ -9,12 +10,13 @@ import MobileMenu from "./MobileMenu";
 import { useCartStore } from "@/app/_store/cartStore";
 import CartModal from "../cart/CartModal";
 import Button from "../shared/Button";
+import CartIndicator from "../cart/CartIndicator"; // Dedicated Client Component for Cart Count
 
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const toggleCart = useCartStore((state) => state.toggleCart);
-  const cartItemsCount = useCartStore((state) => state.items.length);
 
+  // --- Page Detection Logic ---
   const pathname = usePathname();
   const isHome = pathname === "/";
   const isCategoryPage = pathname.startsWith("/category/");
@@ -36,21 +38,29 @@ export default function Header() {
         className={`
           relative z-40 w-full text-white
           
+          /* --- Set Height and Background based on page --- */
+          
+          /* Home Page (Hero) */
           ${isHome ? "h-[600px] md:h-[729px] lg:h-[729px]" : ""}
-          ${isCategoryPage ? "h-[192px] md:h-[291px] lg:h-[336px]" : ""}
-          ${isOtherPage ? "h-[90px] md:h-[97px] bg-black-dark" : ""}
-
           ${isHome ? `
             bg-black-dark 
             bg-[url('/assets/home/mobile/image-hero.jpg')] 
             md:bg-[url('/assets/home/tablet/image-hero.jpg')] 
             lg:bg-[url('/assets/home/desktop/image-hero.jpg')] 
             bg-cover bg-center bg-no-repeat
+            lg:bg-contain lg:bg-right
           ` : `
             bg-black-dark
           `}
+          
+          /* Category Page (Tall Header) */
+          ${isCategoryPage ? "h-[192px] md:h-[291px] lg:h-[336px]" : ""}
+          
+          /* Other Pages (Standard Header) */
+          ${isOtherPage ? "h-[90px] md:h-[97px] bg-black-dark" : ""}
         `}
       >
+        {/* Main Content Wrapper (Aligns everything to 1110px) */}
         <div
           className="
             relative mx-auto max-w-[1110px] h-full
@@ -58,14 +68,17 @@ export default function Header() {
             px-6 md:px-10 xl:px-0
           "
         >
+          {/* 1. TOP NAVIGATION BAR */}
           <div
             className={`
               flex items-center justify-between 
-              h-[90px] md:h-[97px]
+              h-[90px] md:h-[97px] 
               flex-shrink-0
+              /* Border only on Home */
               ${isHome ? "border-b border-white border-opacity-20" : ""}
             `}
           >
+            {/* Left Side: Hamburger & Tablet Logo */}
             <div className="flex items-center gap-11 lg:hidden">
               <button
                 onClick={toggleMobileMenu}
@@ -89,6 +102,7 @@ export default function Header() {
               </Link>
             </div>
 
+            {/* --- DESKTOP NAV GROUP (Logo, Links, Cart) --- */}
             <div className="hidden lg:flex items-center justify-between w-full">
               <Link href="/">
                 <Image
@@ -99,21 +113,10 @@ export default function Header() {
                 />
               </Link>
               <NavLinks />
-              <button
-                onClick={toggleCart}
-                className="relative hover:opacity-70 transition-opacity"
-                aria-label="View cart"
-              >
-                <Image
-                  src="/assets/shared/icon-cart.svg"
-                  width={23}
-                  height={20}
-                  alt=""
-                  aria-hidden="true"
-                />
-              </button>
+              <CartIndicator toggleCart={toggleCart} /> 
             </div>
 
+            {/* Mobile Logo (Absolute Center) */}
             <Link
               href="/"
               className="absolute left-1/2 top-[45px] -translate-x-1/2 -translate-y-1/2 md:hidden"
@@ -126,34 +129,18 @@ export default function Header() {
               />
             </Link>
 
-            <button
-              onClick={toggleCart}
-              className="relative hover:opacity-70 transition-opacity lg:hidden"
-              aria-label="View cart"
-            >
-              <Image
-                src="/assets/shared/icon-cart.svg"
-                width={23}
-                height={20}
-                alt=""
-                aria-hidden="true"
-              />
-              {cartItemsCount > 0 && (
-                <span
-                  className="absolute -top-2 -right-2 bg-orange-primary 
-                               text-white text-xs font-bold rounded-full 
-                               w-5 h-5 flex items-center justify-center"
-                >
-                  {cartItemsCount}
-                </span>
-              )}
-            </button>
+            {/* Mobile/Tablet Cart (Right Side) */}
+            <div className="lg:hidden"> 
+              <CartIndicator toggleCart={toggleCart} />
+            </div>
           </div>
           
+          {/* 4. SEPARATOR LINE (Below Nav, if not Home) */}
           {isCategoryPage && (
              <div className="w-full h-[1px] bg-white bg-opacity-20" />
           )}
 
+          {/* 5. HERO CONTENT (Only on Home Page) */}
           {isHome && (
             <div
               className="
@@ -188,6 +175,7 @@ export default function Header() {
             </div>
           )}
 
+          {/* 6. CATEGORY TITLE (Only on Category Pages) */}
           {isCategoryPage && (
             <div className="flex-grow flex items-center justify-center text-center">
               <h1 className="text-3xl font-bold uppercase tracking-wider md:text-4xl">
@@ -198,6 +186,7 @@ export default function Header() {
         </div>
       </header>
 
+      {/* Menus */}
       {isMobileMenuOpen && <MobileMenu onClose={toggleMobileMenu} />}
       <CartModal />
     </>
