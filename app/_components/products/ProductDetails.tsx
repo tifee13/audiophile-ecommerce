@@ -82,7 +82,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
         <QuantitySelector
           product={{
             productId: product._id,
-            shortName: product.name,
+            shortName: product.shortName,
             price: product.price,
             image: product.productImage_mobile,
           }}

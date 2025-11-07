@@ -5,17 +5,17 @@ import NavLinks from "./NavLinks";
 const socialIcons = [
   {
     href: "https://www.facebook.com",
-    icon: "/assets/shared/icon-facebook.svg",
+    icon: "/assets/shared/icon-facebook.png",
     label: "Facebook",
   },
   {
     href: "https://www.twitter.com",
-    icon: "/assets/shared/icon-twitter.svg",
+    icon: "/assets/shared/icon-twitter.png",
     label: "Twitter",
   },
   {
     href: "https://www.instagram.com",
-    icon: "/assets/shared/icon-instagram.svg",
+    icon: "/assets/shared/icon-instagram.png",
     label: "Instagram",
   },
 ];

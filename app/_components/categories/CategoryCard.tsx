@@ -27,6 +27,7 @@ export default function CategoryCard({
         className="
           absolute z-10 left-1/2 -translate-x-1/2 
           group-hover:scale-110 transition-transform duration-300
+          object-contain
           w-[80px] h-[104px] -top-[0px]
           lg:w-[123px] lg:h-[160px] lg:-top-[0px]
         "

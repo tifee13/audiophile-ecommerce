@@ -1,9 +1,9 @@
 import Image from "next/image";
 import Button from "../shared/Button";
 
-export default function FeaturedZX9() {
+export default function FeaturedZX9({ className = "" }: { className?: string }) {
   return (
-    <section>
+    <section className={className}>
       <div
         className="
           relative bg-orange-primary rounded-lg

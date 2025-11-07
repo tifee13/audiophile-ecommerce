@@ -54,7 +54,7 @@ export default function CartModal() {
                       className="rounded-lg"
                     />
                     <div>
-                      <p className="font-bold">{item.shortName}</p> {/* <-- FIX HERE */}
+                      <p className="font-bold">{item.shortName}</p>
                       <p className="text-sm text-black-dark text-opacity-50">
                         $ {item.price.toLocaleString()}
                       </p>

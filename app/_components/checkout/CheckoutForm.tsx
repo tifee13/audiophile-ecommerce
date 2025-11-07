@@ -162,7 +162,7 @@ export default function CheckoutForm({ onFormSubmit }: CheckoutFormProps) {
               src="/assets/shared/icon-cash-on-delivery.svg"
               width={48}
               height={48}
-              alt=""
+              alt="Cash on Delivery Icon"
               aria-hidden="true"
             />
             <p className="text-black-dark text-opacity-50 text-base">

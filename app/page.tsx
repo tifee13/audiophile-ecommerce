@@ -20,7 +20,11 @@ export default function Home() {
         "
       >
         <HomeCategories />
-        <FeaturedZX9 />
+        <FeaturedZX9 className="
+          mt-[80px]     
+          md:mt-[80px]  
+          lg:mt-[128px] 
+        "/>
         <FeaturedZX7 />
         <FeaturedYX1 />
         <BestGear />

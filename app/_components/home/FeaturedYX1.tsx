@@ -58,12 +58,13 @@ export default function FeaturedYX1({ className = "" }: { className?: string }) 
         <h2 className="text-3xl font-bold uppercase text-black-dark mb-8">
           YX1 Earphones
         </h2>
-        
-        <Button
-          href="/products/yx1-earphones"
-          label="See Product"
-          variant="tertiary"
-        />
+        <div className="w-[160px] md:w-auto">
+          <Button
+            href="/products/yx1-earphones"
+            label="See Product"
+            variant="tertiary"
+          />
+        </div>
       </div>
 
     </section>

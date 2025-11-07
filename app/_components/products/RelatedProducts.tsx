@@ -74,7 +74,7 @@ export default function RelatedProducts({
         You May Also Like
       </h2>
       
-z      <div className="flex flex-col gap-14 w-full md:flex-row md:gap-3 lg:gap-[30px]">
+      <div className="flex flex-col gap-14 w-full md:flex-row md:gap-3 lg:gap-[30px]">
         
         {relatedSlugs.map((slug) => {
           const product = RELATED_PRODUCTS_DATA[slug as keyof typeof RELATED_PRODUCTS_DATA];
