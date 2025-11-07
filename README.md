@@ -4,7 +4,7 @@ This is a professional, multi-page e-commerce front-end and backend application 
 
 The site utilizes a component-driven architecture with Next.js and integrates a highly scalable, real-time backend using Convex.
 
-### [✨ View Live Demo Here](https://[(https://audiophile-ecommerce-seven-ruby.vercel.app/)]
+### [✨ View Live Demo Here](https://[https://audiophile-ecommerce-seven-ruby.vercel.app/])
 
 ---
 
