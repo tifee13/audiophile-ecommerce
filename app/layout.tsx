@@ -6,7 +6,7 @@ import Header from "./_components/layout/Header";
 import Footer from "./_components/layout/Footer";
 import { useCartStore } from "./_store/cartStore";
 
-const manrope = Manrope({ 
+const manrope = Manrope({
   subsets: ["latin"],
   weight: ["400", "500", "700"],
 });
@@ -18,7 +18,11 @@ export default function RootLayout({
 }>) {
   const isCartOpen = useCartStore((state) => state.isOpen);
   return (
-    <html lang="en" className={isCartOpen ? "overflow-hidden" : ""}>
+    <html lang="en" className={isCartOpen ? "overflow-hidden" : ""} suppressHydrationWarning>
+      <head>
+        <meta name="darkreader-lock" />
+        <meta name="color-scheme" content="light only" />
+      </head>
       <body className={manrope.className}>
           <ConvexClientProvider>
           <div className="flex flex-col min-h-screen">
